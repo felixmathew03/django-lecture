@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Student list</h1>
+    <a href="../">Add Student</a>
+    <br><br>
+    <form method="get">
+        <input type="search" placeholder="Search by student name...." name="search" value="{{request.GET.search}}">
+        <select name="course" id="">
+            <option value="">All</option>
+            {% for course in courses %}
+                <option value="{{course.id}}" {% if request.GET.course == course %} selected {% endif %}>{{course.name}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Search">
+    </form>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Image</th>
+            <th>Course</th>
+            <th>Actions</th>
+        </tr>
+        {% for student in students %}
+        <tr> 
+            <td>
+                {{student.name}}
+            </td>
+            <td>
+                {{student.email}}
+            </td>
+            <td>
+                {{student.age}}
+            </td>
+            <td>
+                <img src="{{student.image.url}}" width="100" alt="{{student.name}}">
+            </td>
+            <td>
+                {{student.course}}
+            </td>
+            <td>
+                <a href="../edit_student/{{student.id}}">Edit student</a>
+                <a href="">Delete student</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
