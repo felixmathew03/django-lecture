@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import User
 from .forms import UserForm
+from django.core.mail import send_mail
 
 def signup(request):
     if request.method == 'POST':
@@ -43,3 +44,13 @@ def dashboard(request):
 def logout_view(request):
     request.session.flush()
     return redirect(login_view)
+
+def greet(request):
+    send_mail(
+        subject='Welcome message',
+        message='Welcome to our django app',
+        from_email='felixmathewtt@gmail.com',
+        recipient_list=['adiadithyaajayan@gmail.com'],
+        fail_silently=False
+    )
+    return HttpResponse('Email sent successfully')
